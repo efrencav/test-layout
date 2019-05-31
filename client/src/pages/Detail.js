@@ -25,9 +25,9 @@ class Detail extends Component {
               <h1>
                 {this.state.book.title}
               </h1>
-              <h3>
+              <p>
               {this.state.book.author}
-              </h3>
+              </p>
             </Jumbotron>
           </Col>
         </Row>

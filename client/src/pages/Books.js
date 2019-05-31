@@ -5,7 +5,7 @@ import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn, FileUpload } from "../components/Form";
+import { Input, TextArea, FormBtn } from "../components/Form";
 
 class Books extends Component {
   state = {
@@ -13,7 +13,6 @@ class Books extends Component {
     title: "",
     author: "",
     description: "",
-    fileupload: "",
     synopsis: ""
   };
 
@@ -24,7 +23,7 @@ class Books extends Component {
   loadBooks = () => {
     API.getBooks()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", description: "", fileupload: "", synopsis: "" })
+        this.setState({ books: res.data, title: "", author: "", description: "", synopsis: "" })
       )
       .catch(err => console.log(err));
   };
@@ -49,7 +48,6 @@ class Books extends Component {
         title: this.state.title,
         author: this.state.author,
         description: this.state.description,
-        fileupload: this.state.fileupload,
         synopsis: this.state.synopsis
       })
         .then(res => this.loadBooks())
@@ -63,7 +61,7 @@ class Books extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>What Books Should I Read?</h1>
+              <h1>What Information do you want to add?</h1>
             </Jumbotron>
             <form>
               <Input
@@ -84,10 +82,11 @@ class Books extends Component {
                 name="description"
                 placeholder="description (Optional)"
               />
-              <FileUpload
+              <Input
                 value={this.state.fileupload}
                 onChange={this.handleInputChange}
                 name="fileupload"
+                placeholder="File link"
               />
               <TextArea
                 value={this.state.synopsis}
@@ -105,7 +104,7 @@ class Books extends Component {
           </Col>
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>Books On My List</h1>
+              <h1>Page List</h1>
             </Jumbotron>
             {this.state.books.length ? (
               <List>
