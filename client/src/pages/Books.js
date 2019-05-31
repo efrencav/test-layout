@@ -5,7 +5,7 @@ import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import { Input, TextArea, FormBtn, FileUpload } from "../components/Form";
 
 class Books extends Component {
   state = {
@@ -13,6 +13,7 @@ class Books extends Component {
     title: "",
     author: "",
     description: "",
+    fileupload: "",
     synopsis: ""
   };
 
@@ -23,7 +24,7 @@ class Books extends Component {
   loadBooks = () => {
     API.getBooks()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", description: "", synopsis: "" })
+        this.setState({ books: res.data, title: "", author: "", description: "", fileupload: "", synopsis: "" })
       )
       .catch(err => console.log(err));
   };
@@ -48,6 +49,7 @@ class Books extends Component {
         title: this.state.title,
         author: this.state.author,
         description: this.state.description,
+        fileupload: this.state.fileupload,
         synopsis: this.state.synopsis
       })
         .then(res => this.loadBooks())
@@ -76,11 +78,16 @@ class Books extends Component {
                 name="author"
                 placeholder="Author (required)"
               />
-              <TextArea
+              <Input
                 value={this.state.description}
                 onChange={this.handleInputChange}
                 name="description"
                 placeholder="description (Optional)"
+              />
+              <FileUpload
+                value={this.state.fileupload}
+                onChange={this.handleInputChange}
+                name="fileupload"
               />
               <TextArea
                 value={this.state.synopsis}
